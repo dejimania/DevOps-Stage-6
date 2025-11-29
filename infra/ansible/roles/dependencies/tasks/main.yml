@@ -40,7 +40,7 @@
     groups: docker
     append: yes
 
-- name: Install Docker Compose
+- name: Install Docker Compose (v2)
   get_url:
     url: "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-linux-x86_64"
     dest: /usr/local/bin/docker-compose
