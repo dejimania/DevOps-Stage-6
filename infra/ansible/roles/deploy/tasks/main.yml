@@ -12,26 +12,33 @@
     repo: "{{ app_repo_url | default('https://github.com/dejimania/DevOps-Stage-6.git') }}"
     dest: /opt/microservices-app
     force: yes
-  become_user: "{{ ansible_user }}"
+    update: yes
+  # become_user: "{{ ansible_user }}"
+  become: true
   register: git_result
 
-- name: Stop existing containers if code changed
-  docker_compose:
+# Important: Use 'absent' only to stop/remove containers
+- name: Stop and remove existing containers if code changed
+  community.docker.docker_compose_v2:
     project_src: /opt/microservices-app
     state: absent
+    remove_volumes: no        # safer — keeps DB/data
   when: git_result.changed
-  become_user: "{{ ansible_user }}"
+  become: true
 
+# Build images and ensure containers are running
 - name: Build and start application containers
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: /opt/microservices-app
-    build: yes
+    build: always             # ensures rebuild after git update
     state: present
-  become_user: "{{ ansible_user }}"
+    recreate: always          # ensures clean container update
+  become: true
 
+# Wait for the application on port 80
 - name: Wait for application to be ready
   wait_for:
     port: 80
-    host: localhost
-    delay: 10
+    host: "127.0.0.1"
+    delay: 5
     timeout: 300
