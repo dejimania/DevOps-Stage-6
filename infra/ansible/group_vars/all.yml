@@ -14,5 +14,8 @@
 app_repo_url: "https://github.com/dejimania/DevOps-Stage-6.git"
 app_directory: "/opt/microservices-app"
 
+# Docker configuration
+# docker_compose_version: "2.20.0"
+
 # System configuration
 timezone: "UTC"

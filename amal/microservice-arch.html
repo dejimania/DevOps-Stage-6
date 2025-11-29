@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Architecture & Deployment</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            color: white;
+            text-align: center;
+        }
+        .slide.active {
+            display: flex;
+        }
+        .slide h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .slide h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #FFD700;
+        }
+        .slide h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #87CEEB;
+        }
+        .slide ul {
+            font-size: 1.4em;
+            text-align: left;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        .slide li {
+            margin-bottom: 10px;
+        }
+        .architecture-diagram {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        .service-box {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 2px solid #FFD700;
+        }
+        .flow-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .flow-step {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            min-width: 200px;
+            border-left: 5px solid #FFD700;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .nav-btn {
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.5);
+        }
+        .slide-number {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 18px;
+        }
+        .highlight {
+            background: rgba(255,215,0,0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #FFD700;
+            font-weight: bold;
+        }
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            margin: 20px 0;
+            border-left: 5px solid #87CEEB;
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+        <h1>Microservices TODO Application</h1>
+        <h2>Containerized, Automated & Secure Deployment</h2>
+        <div class="architecture-diagram">
+            <h3>Complete DevOps Pipeline Implementation</h3>
+            <p style="font-size: 1.2em;">Terraform + Ansible + Docker + CI/CD + Drift Detection</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Architecture Overview -->
+    <div class="slide">
+        <h2>System Architecture Overview</h2>
+        <div class="architecture-diagram">
+            <div class="service-box">Frontend (Vue.js)</div>
+            <div class="service-box">Auth API (Go)</div>
+            <div class="service-box">Todos API (Node.js)</div>
+            <div class="service-box">Users API (Java)</div>
+            <div class="service-box">Log Processor (Python)</div>
+            <div class="service-box">Redis Queue</div>
+        </div>
+        <ul>
+            <li><span class="highlight">6 Microservices</span> in different languages</li>
+            <li><span class="highlight">Traefik Reverse Proxy</span> with SSL termination</li>
+            <li><span class="highlight">Docker Containerization</span> for all services</li>
+            <li><span class="highlight">Redis</span> for message queuing</li>
+        </ul>
+    </div>
+
+    <!-- Slide 3: PART 1 - Containerization -->
+    <div class="slide">
+        <h2>PART 1: Application Containerization</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <h3>Dockerfiles</h3>
+                <p>Individual containers for each service</p>
+            </div>
+            <div class="flow-step">
+                <h3>Docker Compose</h3>
+                <p>Orchestrates all services</p>
+            </div>
+            <div class="flow-step">
+                <h3>Traefik Proxy</h3>
+                <p>SSL + Routing</p>
+            </div>
+        </div>
+        <div class="code-block">
+            <strong>Single Command Deployment:</strong><br>
+            docker compose up -d
+        </div>
+        <ul>
+            <li><span class="highlight">HTTPS Endpoints:</span> your-domain.com, /api/auth, /api/todos, /api/users</li>
+            <li><span class="highlight">Automatic SSL:</span> Let's Encrypt certificates</li>
+            <li><span class="highlight">HTTP → HTTPS:</span> Automatic redirection</li>
+        </ul>
+    </div>
+
+    <!-- Slide 4: PART 2 - Infrastructure -->
+    <div class="slide">
+        <h2>PART 2: Infrastructure & Automation</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <h3>Terraform</h3>
+                <p>• AWS EC2 provisioning<br>• Security groups<br>• Remote state (S3)<br>• Dynamic inventory</p>
+            </div>
+            <div class="flow-step">
+                <h3>Ansible</h3>
+                <p>• Dependencies role<br>• Deploy role<br>• Idempotent operations</p>
+            </div>
+            <div class="flow-step">
+                <h3>CI/CD</h3>
+                <p>• GitHub Actions<br>• Drift detection<br>• Email alerts</p>
+            </div>
+        </div>
+        <ul>
+            <li><span class="highlight">Idempotent:</span> Re-running does nothing unless changes exist</li>
+            <li><span class="highlight">Drift-Safe:</span> Automatic detection with email notifications</li>
+            <li><span class="highlight">Automated:</span> Terraform → Ansible → Application deployment</li>
+        </ul>
+    </div>
+
+    <!-- Slide 5: Terraform Implementation -->
+    <div class="slide">
+        <h2>Terraform: Idempotent Infrastructure</h2>
+        <div class="architecture-diagram">
+            <h3>Key Components</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <strong>main.tf</strong><br>
+                    EC2 + Security Groups
+                </div>
+                <div class="flow-step">
+                    <strong>Remote State</strong><br>
+                    S3 Backend
+                </div>
+                <div class="flow-step">
+                    <strong>Dynamic Inventory</strong><br>
+                    Auto-generated for Ansible
+                </div>
+            </div>
+        </div>
+        <div class="code-block">
+            <strong>Automatic Ansible Execution:</strong><br>
+            resource "null_resource" "run_ansible" {<br>
+            &nbsp;&nbsp;provisioner "local-exec" {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;command = "ansible-playbook -i inventory.ini site.yml"<br>
+            &nbsp;&nbsp;}<br>
+            }
+        </div>
+    </div>
+
+    <!-- Slide 6: Ansible Roles -->
+    <div class="slide">
+        <h2>Ansible: Server Configuration & Deployment</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <h3>Dependencies Role</h3>
+                <p>• Docker & Docker Compose<br>• Git installation<br>• System packages<br>• User permissions</p>
+            </div>
+            <div class="flow-step">
+                <h3>Deploy Role</h3>
+                <p>• Repository cloning<br>• Container management<br>• SSL configuration<br>• Health checks</p>
+            </div>
+        </div>
+        <ul>
+            <li><span class="highlight">Idempotent Deployment:</span> No restart unless files changed</li>
+            <li><span class="highlight">Git Integration:</span> Automatic repo cloning and updates</li>
+            <li><span class="highlight">Container Orchestration:</span> Docker Compose management</li>
+        </ul>
+    </div>
+
+    <!-- Slide 7: CI/CD Pipeline -->
+    <div class="slide">
+        <h2>CI/CD: Automated Deployment Pipeline</h2>
+        <div class="architecture-diagram">
+            <h3>Two Workflow Types</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>Infrastructure Workflow</h3>
+                    <p>Triggers on:<br>• infra/terraform/** changes<br>• infra/ansible/** changes</p>
+                </div>
+                <div class="flow-step">
+                    <h3>Application Workflow</h3>
+                    <p>Triggers on:<br>• Service code changes<br>• docker-compose.yml changes</p>
+                </div>
+            </div>
+        </div>
+        <ul>
+            <li><span class="highlight">Drift Detection:</span> terraform plan → email alert → manual approval</li>
+            <li><span class="highlight">Conditional Deployment:</span> Only runs if changes detected</li>
+            <li><span class="highlight">Email Notifications:</span> Automatic alerts for infrastructure drift</li>
+        </ul>
+    </div>
+
+    <!-- Slide 8: Drift Detection Flow -->
+    <div class="slide">
+        <h2>Drift Detection & Safety Mechanism</h2>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <h3>1. Plan Check</h3>
+                <p>terraform plan<br>-detailed-exitcode</p>
+            </div>
+            <div class="flow-step">
+                <h3>2. Drift Found?</h3>
+                <p>Exit code = 2<br>Changes detected</p>
+            </div>
+            <div class="flow-step">
+                <h3>3. Email Alert</h3>
+                <p>Notify stakeholders<br>Pause pipeline</p>
+            </div>
+            <div class="flow-step">
+                <h3>4. Manual Approval</h3>
+                <p>GitHub Environment<br>Human verification</p>
+            </div>
+            <div class="flow-step">
+                <h3>5. Apply Changes</h3>
+                <p>terraform apply<br>Only after approval</p>
+            </div>
+        </div>
+        <div class="code-block">
+            <strong>No Drift = Automatic Proceed</strong><br>
+            <strong>Drift Detected = Email + Manual Approval Required</strong>
+        </div>
+    </div>
+
+    <!-- Slide 9: Security & SSL -->
+    <div class="slide">
+        <h2>Security Implementation</h2>
+        <div class="architecture-diagram">
+            <h3>Multi-Layer Security</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>Network Security</h3>
+                    <p>• AWS Security Groups<br>• Minimal port exposure<br>• SSH key authentication</p>
+                </div>
+                <div class="flow-step">
+                    <h3>SSL/TLS</h3>
+                    <p>• Let's Encrypt certificates<br>• Automatic renewal<br>• HTTP → HTTPS redirect</p>
+                </div>
+                <div class="flow-step">
+                    <h3>Application Security</h3>
+                    <p>• JWT token authentication<br>• API authorization<br>• Container isolation</p>
+                </div>
+            </div>
+        </div>
+        <ul>
+            <li><span class="highlight">Traefik Configuration:</span> Automatic SSL certificate management</li>
+            <li><span class="highlight">Security Groups:</span> Only ports 22, 80, 443 exposed</li>
+            <li><span class="highlight">Container Security:</span> Isolated network namespace</li>
+        </ul>
+    </div>
+
+    <!-- Slide 10: Single Command Deployment -->
+    <div class="slide">
+        <h2>PART 3: Single Command Deployment</h2>
+        <div class="code-block">
+            <strong>Complete Stack Deployment:</strong><br>
+            terraform apply -auto-approve
+        </div>
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <h3>1. Provision</h3>
+                <p>AWS EC2 + Security Groups</p>
+            </div>
+            <div class="flow-step">
+                <h3>2. Generate</h3>
+                <p>Ansible inventory file</p>
+            </div>
+            <div class="flow-step">
+                <h3>3. Configure</h3>
+                <p>Install dependencies</p>
+            </div>
+            <div class="flow-step">
+                <h3>4. Deploy</h3>
+                <p>Application containers</p>
+            </div>
+            <div class="flow-step">
+                <h3>5. Secure</h3>
+                <p>Traefik + SSL setup</p>
+            </div>
+        </div>
+        <ul>
+            <li><span class="highlight">Fully Automated:</span> Zero manual intervention required</li>
+            <li><span class="highlight">Idempotent:</span> Skip unchanged resources</li>
+            <li><span class="highlight">Production Ready:</span> HTTPS endpoints immediately available</li>
+        </ul>
+    </div>
+
+    <!-- Slide 11: Key Benefits -->
+    <div class="slide">
+        <h2>Key Benefits & Achievements</h2>
+        <div class="architecture-diagram">
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <h3>🚀 Automation</h3>
+                    <p>• Single command deployment<br>• Zero manual configuration<br>• Automatic SSL setup</p>
+                </div>
+                <div class="flow-step">
+                    <h3>🛡️ Safety</h3>
+                    <p>• Drift detection<br>• Email notifications<br>• Manual approval gates</p>
+                </div>
+                <div class="flow-step">
+                    <h3>🔄 Reliability</h3>
+                    <p>• Idempotent operations<br>• State management<br>• Rollback capability</p>
+                </div>
+                <div class="flow-step">
+                    <h3>📈 Scalability</h3>
+                    <p>• Microservices architecture<br>• Container orchestration<br>• Cloud-native design</p>
+                </div>
+            </div>
+        </div>
+        <ul>
+            <li><span class="highlight">Production Ready:</span> HTTPS, monitoring, logging</li>
+            <li><span class="highlight">DevOps Best Practices:</span> IaC, CI/CD, automated testing</li>
+            <li><span class="highlight">Enterprise Grade:</span> Security, compliance, auditability</li>
+        </ul>
+    </div>
+
+    <!-- Slide 12: Demo & Questions -->
+    <div class="slide">
+        <h1>Live Demonstration</h1>
+        <div class="architecture-diagram">
+            <h2>Ready to Deploy!</h2>
+            <div class="code-block">
+                <strong>Commands to Execute:</strong><br><br>
+                # Infrastructure deployment<br>
+                cd infra/terraform<br>
+                terraform apply -auto-approve<br><br>
+                # Application access<br>
+                https://your-domain.com<br>
+                https://your-domain.com/api/auth<br>
+                https://your-domain.com/api/todos<br>
+                https://your-domain.com/api/users
+            </div>
+        </div>
+        <h2 style="margin-top: 40px;">Questions & Discussion</h2>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <div class="slide-number">
+        <span id="current-slide">1</span> / <span id="total-slides">12</span>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

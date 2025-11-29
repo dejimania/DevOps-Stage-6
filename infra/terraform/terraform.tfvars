@@ -1,0 +1,6 @@
+aws_region = "us-east-1"
+ami_id = "ami-0ecb62995f68bb549"
+instance_type = "t3.large"
+key_name = "fp_cicd"
+private_key_path = "/root/.ssh/fp_cicd.pem"
+subnet_id = "subnet-c560219a"
