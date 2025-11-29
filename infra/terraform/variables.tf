@@ -25,3 +25,9 @@ variable "private_key_path" {
   description = "Path to private key file"
   type        = string
 }
+
+variable "subnet_id" {
+  description = "Subnet ID where EC2 instance will be launched"
+  type        = string
+  default     = ""
+}

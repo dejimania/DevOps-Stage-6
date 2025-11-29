@@ -41,6 +41,13 @@ resource "aws_security_group" "app_sg" {
   }
 
   ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -60,17 +67,25 @@ resource "aws_security_group" "app_sg" {
 }
 
 resource "aws_instance" "app_server" {
-  ami                    = var.ami_id
-  instance_type         = var.instance_type
-  key_name              = var.key_name
-  security_groups       = [aws_security_group.app_sg.name]
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  key_name                    = var.key_name
+  vpc_security_group_ids      = [aws_security_group.app_sg.id]
+  subnet_id                   = var.subnet_id != "" ? var.subnet_id : null
+  associate_public_ip_address = true
+  
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3"
+    delete_on_termination = true
+  }
   
   tags = {
     Name = "microservices-app-server"
-  }
-
-  provisioner "local-exec" {
-    command = "sleep 30"
+    Env  = "Prod"
+    Owner = "DJC"
+    Project = "Microservices arch"
+    ManagedBy = "Terraform"
   }
 }
 
@@ -88,7 +103,7 @@ resource "null_resource" "run_ansible" {
   depends_on = [local_file.ansible_inventory]
 
   provisioner "local-exec" {
-    command = "cd ${path.module}/../ansible && ansible-playbook -i inventory.ini site.yml"
+    command = "echo 'Waiting for instance to be ready...' && sleep 240 && cd ${path.module}/../ansible && ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.ini site.yml -v --timeout=600"
   }
 
   triggers = {

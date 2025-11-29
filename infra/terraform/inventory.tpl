@@ -1,2 +1,2 @@
 [app_servers]
-app_server ansible_host=${server_ip} ansible_user=ubuntu ansible_ssh_private_key_file=${key_path} ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+app_server ansible_host=${server_ip} ansible_user=ubuntu ansible_ssh_private_key_file=${key_path} ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ConnectTimeout=60 -o ConnectionAttempts=3'
