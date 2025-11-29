@@ -33,10 +33,10 @@ services:
       - TODOS_API_ADDRESS=http://todos-api:8082
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`hng.eazypro.net`)"
+      - "traefik.http.routers.frontend.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/auth`)"
       - "traefik.http.routers.frontend.entrypoints=web"
       - "traefik.http.routers.frontend.middlewares=redirect-to-https"
-      - "traefik.http.routers.frontend-secure.rule=Host(`hng.eazypro.net`)"
+      - "traefik.http.routers.frontend-secure.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/auth`)"
       - "traefik.http.routers.frontend-secure.entrypoints=websecure"
       - "traefik.http.routers.frontend-secure.tls=true"
       - "traefik.http.routers.frontend-secure.tls.certresolver=myresolver"
@@ -56,10 +56,10 @@ services:
       - USERS_API_ADDRESS=http://users-api:8083
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.auth-api.rule=Host(`hng.eazypro.net`) && PathPrefix(`/api/auth`)"
+      - "traefik.http.routers.auth-api.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/auth`)"
       - "traefik.http.routers.auth-api.entrypoints=web"
       - "traefik.http.routers.auth-api.middlewares=redirect-to-https"
-      - "traefik.http.routers.auth-api-secure.rule=Host(`hng.eazypro.net`) && PathPrefix(`/api/auth`)"
+      - "traefik.http.routers.auth-api-secure.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/auth`)"
       - "traefik.http.routers.auth-api-secure.entrypoints=websecure"
       - "traefik.http.routers.auth-api-secure.tls=true"
       - "traefik.http.routers.auth-api-secure.tls.certresolver=myresolver"
@@ -81,10 +81,10 @@ services:
       - REDIS_CHANNEL=log_channel
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.todos-api.rule=Host(`hng.eazypro.net`) && PathPrefix(`/api/todos`)"
+      - "traefik.http.routers.todos-api.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/todos`)"
       - "traefik.http.routers.todos-api.entrypoints=web"
       - "traefik.http.routers.todos-api.middlewares=redirect-to-https"
-      - "traefik.http.routers.todos-api-secure.rule=Host(`hng.eazypro.net`) && PathPrefix(`/api/todos`)"
+      - "traefik.http.routers.todos-api-secure.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/todos`)"
       - "traefik.http.routers.todos-api-secure.entrypoints=websecure"
       - "traefik.http.routers.todos-api-secure.tls=true"
       - "traefik.http.routers.todos-api-secure.tls.certresolver=myresolver"
@@ -104,10 +104,10 @@ services:
       - JWT_SECRET=myfancysecret
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.users-api.rule=Host(`hng.eazypro.net`) && PathPrefix(`/api/users`)"
+      - "traefik.http.routers.users-api.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/users`)"
       - "traefik.http.routers.users-api.entrypoints=web"
       - "traefik.http.routers.users-api.middlewares=redirect-to-https"
-      - "traefik.http.routers.users-api-secure.rule=Host(`hng.eazypro.net`) && PathPrefix(`/api/users`)"
+      - "traefik.http.routers.users-api-secure.rule=(Host(`hng.eazypro.net`) || Host(`localhost`)) && PathPrefix(`/api/users`)"
       - "traefik.http.routers.users-api-secure.entrypoints=websecure"
       - "traefik.http.routers.users-api-secure.tls=true"
       - "traefik.http.routers.users-api-secure.tls.certresolver=myresolver"
